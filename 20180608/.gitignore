@@ -1,0 +1,5 @@
+pru
+mpipe
+*.o
+core
+*.core

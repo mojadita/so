@@ -1,0 +1,7 @@
+*.core
+core
+*.o
+*.so
+pru3
+sofilt
+words2ast
