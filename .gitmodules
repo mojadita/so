@@ -1,9 +1,9 @@
-[submodule "signals"]
-	path = 49965333
-	url = git@github.com:mojadita/signals.git
 [submodule "56189146"]
 	path = 56189146
 	url = ssh://git@github.com/mojadita/so-56189146
 [submodule "5723478"]
 	path = 57234078
 	url = ssh://git@github.com/mojadita/so-monitor
+[submodule "49965333"]
+	path = 49965333
+	url = ssh://git@github.com/mojadita/signals
