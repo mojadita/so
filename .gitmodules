@@ -5,5 +5,5 @@
 	path = 56189146
 	url = ./56189146
 [submodule "signals"]
-	path = signals
+	path = 49889300
 	url = git@github.com:mojadita/signals.git
