@@ -7,3 +7,6 @@
 [submodule "6189146"]
 	path = 56189146
 	url = ssh://git@github.com/mojadita/so-56189146
+[submodule "57333102"]
+	path = 57333102
+	url = git@github.com:mojadita/fprintbuf.git
