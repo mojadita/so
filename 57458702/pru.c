@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void paint_line(char *s, int n)
+static const char AST[] = "**********";
+static const char BLK[] = "          ";
+
+void paint_line(const char *s, int n)
 {
 	int l = strlen(s);
 	while (n >= l) {
@@ -18,15 +21,15 @@ void paint_tie(int n)
 {
 	int row;
 	for(row = 1; row <= n; row++) {
-		paint_line("*******", row);
-		paint_line("       ", 2*(n-row) + 1);
-		paint_line("*******", row);
+		paint_line(AST, row);
+		paint_line(BLK, 2*(n-row) + 1);
+		paint_line(AST, row);
 		printf("\n");
 	}
 	for (row = n-1; row > 0; row--) {
-		paint_line("*******", row);
-		paint_line("       ", 2*(n-row) + 1);
-		paint_line("*******", row);
+		paint_line(AST, row);
+		paint_line(BLK, 2*(n-row) + 1);
+		paint_line(AST, row);
 		printf("\n");
 	}
 }
