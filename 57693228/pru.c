@@ -1,3 +1,10 @@
+/* pru.c --- answer to a list question from StackOverflow.
+ * Author: Luis Colorado <luiscoloradourcola@gmail.com>
+ * Date: Wed Aug 28 17:53:56 EEST 2019
+ * Coppyright: (C) 2019 LUIS COLORADO.  All rights reserved.
+ * License: BSD.
+ */
+
 #include <assert.h>
 #include <getopt.h>
 #include <stdlib.h>
@@ -9,7 +16,8 @@ typedef struct client {
 	struct client *next;
 } client;
 
-void del(client **l, char *n)
+void
+del(client **l, char *n)
 {
     assert(l != NULL);
 
@@ -28,7 +36,8 @@ void del(client **l, char *n)
 	}
 } /* del */
 
-void ins(client **l, char *n)
+void
+ins(client **l, char *n)
 {
     assert(l != NULL);
 
@@ -40,8 +49,11 @@ void ins(client **l, char *n)
     *l = c;
 } /* ins */
 
-void print(client **l)
+void
+print(client **l)
 {
+    assert(l != NULL);
+
     client *p;
     char *sep = "";
     for (p = *l; p; p = p->next) {
