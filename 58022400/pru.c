@@ -5,6 +5,7 @@
  * License: BSD.
  */
 #include <errno.h>
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -47,13 +48,25 @@ int restore_cfg(int fd, struct termios *cf)
     return tcsetattr(fd, TCSADRAIN, cf);
 } /* restore_cfg */ 
 
-int main()
+int main(int argc, char **argv)
 {
-    struct termios *cfg = set_raw(fileno(stdin));
-    if (!cfg) {
-        fprintf(stderr, F("stdin: %s\n"),
-                strerror(errno));
-    }
+    int opt;
+    int flags = 0;
+#define FLAG_N      (1 << 0)
+    while((opt = getopt(argc, argv, "n")) != EOF) {
+        switch (opt) {
+        case 'n': flags |= FLAG_N; break;
+        } /* switch */
+    } /* while */
+
+    struct termios *cfg;
+    if (!(flags & FLAG_N)) {
+        cfg = set_raw(fileno(stdin));
+        if (!cfg) {
+            fprintf(stderr, F("stdin: %s\n"),
+                    strerror(errno));
+        }
+    } /* if */
 
     setbuf(stdin, NULL); /* stdin unbuffered */
     setbuf(stdout, NULL); /* stdout unbuffered */
@@ -67,7 +80,7 @@ int main()
         printf("[%02x]", c);
     }
 
-    if (cfg) { /* if we were able to set the terminal to raw mode */
+    if (!(flags & FLAG_N) && cfg) { /* if we were able to set the terminal to raw mode */
         /* restore config */
         restore_cfg(fileno(stdin), cfg);
 
