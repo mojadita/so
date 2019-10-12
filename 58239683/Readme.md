@@ -1,4 +1,4 @@
-# redirect standard output temporary
+# redirect standard output temporarily
 
 This repository addresss
 [this question made in stackoverflow](https://stackoverflow.com/a/58353672/3899431)
