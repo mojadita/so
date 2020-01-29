@@ -79,28 +79,27 @@ int main(int argc, char* argv[]){
         exit(1);
     }
 
-    while (1) {
-        // accept
-
-        fd_client = accept(fd_server, (struct sockaddr *)&client_address, &client_address_length);
-        if (fd_client == -1) {
-            fprintf(stderr, "Error: accept failed.\n");
-            continue;
-        }
-        printf("connected...\n");
+    // accept
+    while ((fd_client = accept(fd_server, (struct sockaddr *)&client_address, &client_address_length)) >= 0) {
+        printf("connected...\n"); // do this only in the child process. Or flush stdout before forking...
+        fflush(stdout); // so you get only one message (you flush the buffer before forking)
         int pid = fork();
-        if (!pid) { // check for the value of pid, not call fork() again.
+        if (pid == 0) { // check for the value of pid, not call fork() again.
             // child process
-            close(fd_server);
+            close(fd_server);  // good.
 
             memset(buf, 0, 2048);
-            read(fd_client, buf, 2047);
-            printf("%s\n", buf);
+            ssize_t n = read(fd_client, buf, sizeof buf);
+            if (n > 0) {
+                write(1, buf, n);  // better not consider it a null terminated string.
+            }
             close(fd_client);
             printf("closing...\n");
-            exit(0);
+            exit(EXIT_SUCCESS);
         }
-        close(fd_client);
+        close(fd_client); // good.
     }
-    return 0;
+
+    fprintf(stderr, "Error: accept failed.\n");
+    exit(EXIT_FAILURE);
 }
