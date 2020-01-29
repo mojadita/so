@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -59,7 +60,7 @@ int main(int argc, char* argv[]){
     }
 
     // I don't know what is this
-    setsockopt(fd_server, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(int));
+    // setsockopt(fd_server, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(int)); // indeed, you had better not to use it.
 
     server_address.sin_family = AF_INET;
     server_address.sin_port = htons(port_num);
@@ -88,7 +89,7 @@ int main(int argc, char* argv[]){
         }
         printf("connected...\n");
         int pid = fork();
-        if (!fork()) {
+        if (!pid) { // check for the value of pid, not call fork() again.
             // child process
             close(fd_server);
 
