@@ -1,7 +1,7 @@
 ### Answer to question in Stack Overflow.
 
 This is the code corresponding to
-[this question](https://stackoverflow.com/a/60226577/3899431),
+[this answer](https://stackoverflow.com/a/60226577/3899431),
 made in Stack Overflow.
 
 To compile, just run
