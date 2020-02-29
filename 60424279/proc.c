@@ -58,6 +58,7 @@ int process(const char *str)
 			if (!isdigit(*p)) {
 				WARN("%s\n", str);
 				WARN("%*s^: is not a digit\n", (int)(p-str), "");
+				exit_code |= EXIT_ESYNTAX;
 				return -1;
 			}
 		}
@@ -69,6 +70,9 @@ int process(const char *str)
     }
 
 	if (st >= 10) st -= 10;
+
+	if (st)
+		exit_code |= EXIT_FAILED;
 
     DEB("Returning => %d\n", st);
 

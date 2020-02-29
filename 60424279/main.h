@@ -44,6 +44,8 @@
 #define EXIT_HELP           (1 << 0)
 #define EXIT_EMALLOC        (1 << 1)
 #define EXIT_EOPEN          (1 << 2)
+#define EXIT_ESYNTAX		(1 << 3)
+#define EXIT_FAILED			(1 << 4)
 
 
 extern int flags;
