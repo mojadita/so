@@ -9,6 +9,7 @@
 #include <errno.h>
 #include <getopt.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -34,7 +35,6 @@ void do_help()
         "     Format is one number per line\n"
         " -h  Help.  Prints this help text.\n"
         " -i  Prints the invalid keys only.\n"
-        " -n number allows a numer indicated in the command line\n"
         " -q  Be quiet.  Only an exit error code is given.\n"
         " -s  Prints a summary at the end.  The number of\n"
         "    good keys / total keys is printed at the end.\n"
@@ -50,9 +50,9 @@ int main(int argc, char **argv)
     size_t files_n = 0;
     int opt;
 
-    while ((opt = getopt(argc, argv, "fhinvsq")) >= 0) {
+    while ((opt = getopt(argc, argv, "f:hiqsv")) >= 0) {
         switch (opt) {
-        case 'f':
+        case 'f': flags |= FLAG_FILES;
             if (files_n == files_cap) {
                 files_cap <<= 1;
                 files = realloc(files, files_cap * sizeof(*files));
@@ -63,6 +63,8 @@ int main(int argc, char **argv)
                     exit_code |= EXIT_EMALLOC;
                 }
             }
+			files[files_n++] = optarg;
+			break;
         case 'h': flags |= FLAG_HELP; break;
         case 'i': flags |= FLAG_INVALID; break;
         case 'q': flags |= FLAG_QUIET; break;
@@ -85,14 +87,17 @@ int main(int argc, char **argv)
     if (flags & FLAG_FILES) {
         int i;
         for (i = 0; i < files_n; i++) {
-            FILE *in = fopen(files[i], "rt");
+			bool is_file = strcmp(files[i], "-");
+            FILE *in = is_file
+				? fopen(files[i], "rt")
+				: stdin ;
             if (!in) {
                 exit_code |= EXIT_EOPEN;
                 WARN("%s: %s\n", files[i], strerror(errno));
                 continue;
             }
             process_file(in, files[i], &ok, &total);
-            fclose(in);
+			if (is_file) fclose(in);
         }
     }
 
@@ -104,10 +109,14 @@ int main(int argc, char **argv)
             total++;
         }
     } else {
-        if ((flags & FLAG_FILES) == 0) {
+        if (~flags & FLAG_FILES) {
             process_file(stdin, "stdin", &ok, &total);
         }
     }
+
+	if (flags & FLAG_SUMMARY) {
+		printf("%d/%d (ok/total)\n", ok, total);
+	}
 
     exit(exit_code);
 }

@@ -16,7 +16,7 @@ void process_file(FILE *in, char *fn, int *ok, int *total)
     DEB("file %s\n", fn);
     char line[BUFSIZE];
     while (fgets(line, sizeof line, in)) {
-        char *s = strtok(line, " \t\n");
+        char *s = strtok(line, "\n");
         if (!s)
             continue;
         if (process(s) == 0 && ok)
