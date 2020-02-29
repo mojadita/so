@@ -4,13 +4,13 @@
 # Copyright: (C) 2020 Luis Colorado.  All rights reserved.
 # License: BSD
 
-RM	   	   ?= rm -f
+RM       ?= rm -f
 
-targets		= cs50
-toclean		= $(targets)
+targets   = cs50
+toclean   = $(targets)
 
-cs50_objs	= main.o pl.o proc.o
-toclean	   += $(cs50_objs)
+cs50_objs = main.o pl.o proc.o
+toclean  += $(cs50_objs)
 
 all: $(targets)
 clean:
