@@ -1,0 +1,110 @@
+.Dd $Mdocdate$
+.Dt CS50 1
+.OS
+.Sh NAME
+.Nm cs50
+.Nd a program to calculate checksums of card numbers, bank accounts, etc.
+.Sh SYNOPSIS
+.Nm cs50
+.Op Fl hqsv
+.Op Fl f Ar file Cm ...
+.Op Ar number Cm ...
+.Sh DESCRIPTION
+The
+.Nm
+takes a series of numbers to be verified, in order to compute
+their cs50 checksum and outputs the value the last digit should
+hav, in order to have a good checksum.
+.Pp
+The 
+.Nm
+allows reading numbers, one per line, from  files, computes the
+values of the checksums, and outputs the input numbers, with the
+desired last digit, instead of the one read.
+.Pp
+In case you want
+.Nm
+to calculate the last digit checksum, just put a zero in there,
+and the program will tell you the appropiate digit that makes the
+checksum 0.
+.Sh OPTIONS
+.Bl -tag 
+.It Fl f Ar file
+Allows to input lines from
+.Ar file
+and computes the last digit for each line in the file.
+.It Fl h
+This flag makes the
+.Nm
+program to output a help screen.
+.It Fl q
+Makes the
+.Nm
+to be quiet.
+It outputs nothing to stdout, so only the exit code
+is significant.
+.It Fl s
+Allows
+.Nm
+to print a summary of how many numbers passed the check and the
+total number of them were scanned.
+.It Fl v
+Makes
+.Nm
+verbose, printing to
+.Ar stderr
+the traces of what it is doing.
+.Pp
+The option
+.Fl f Ar file
+can be repeated, and allows to use
+.Ar -
+as argument, meaning
+.Ar stdin .
+.El
+.Sh EXIT CODES
+The exit code is a bit logical or of the following values,
+indicating the problems that were encountered on processing.
+.Bl -tag
+.It 1
+Help screen was requested.
+Help forces exit immediately, so it will be shown alone.
+.It 2
+.Cm malloc(3)
+failed.
+.Cm malloc(3)
+is used to compute the list of files present in the command line.
+It is firs allocated space for ten files, but if more are needed,
+the list of pointers is reallocated to allow for more files to be
+used in the command line.
+In case some of these allocations fail, this error is shown and
+the program exits.
+.It 4
+One of the files failed to open.
+Normally, a diagnostic is shown in
+.Ar stderr .
+.It 8
+Some of the numbers shown a syntax error, meaning this that a
+character position was not a digit, space, comma, or a valid
+number separator.  Valid number separators are:
+.Cm ' '
+(space),
+.Cm '\et' ,
+.Cm '\en' ,
+.Cm '\er' ,
+.Cm '\ef' ,
+.Cm '\ea' ,
+.Cm '\eb' ,
+.Cm '\ev' ,
+.Cm '-' ,
+.Cm '.' ,
+.Cm '_' 
+and
+.Cm ',' .
+.It 16
+Some of the codes failed to pass the
+.Nm
+checksum.
+.El
+.Sh AUTHOR
+.An "Luis Colorado" Aq Mt luiscoloradourcola@gmail.com

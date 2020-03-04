@@ -77,7 +77,9 @@ int process(const char *str)
     DEB("Returning => %d\n", st);
 
     if (~flags & FLAG_QUIET) {
-        printf("%s: %d\n", str, st);
+		int ok = 10 - st;
+		if (ok >= 10) ok -= 10;
+        printf("%s: %d\n", str, ok);
     }
 
     return st;
