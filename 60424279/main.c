@@ -110,7 +110,7 @@ int main(int argc, char **argv)
     }
     
 	if (flags & FLAG_SUMMARY) {
-		printf("%d/%d (ok/total)\n", ok, total);
+		printf("%d/%d ok\n", ok, total);
 	}
 
     exit(exit_code);
