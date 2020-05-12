@@ -23,25 +23,23 @@ e12		 [+-]?{dig}+
 
 {e01}       |
 {e02}		|
-{e03}		printf("<sep=[ ];dec=[.,]>[\033[32m%s\033[m]\n", yytext);
+{e03}		|
 
 {e04}       |
 {e05}		|
-{e06}		printf("<sep=[,];dec=[.]> [\033[32m%s\033[m]\n", yytext);
+{e06}		|
 
 {e07}       |
 {e08}		|
-{e09}		printf("<sep=[.];dec=[,]> [\033[32m%s\033[m]\n", yytext);
+{e09}		|
 
 {e10}		|
 {e11}		|
-{e12}		printf("<sep=[];dec[,.]>  [\033[32m%s\033[m]\n", yytext);
+{e12}		printf("<\033[1;32m%s\033[m>", yytext);
 
-[0-9.,+-]*  printf("<invalid>         [\033[31m%s\033[m]\n", yytext);
+[,.]		ECHO;
 
-\t          |
-\n          |
-.           ;
+[0-9.,+-]*  printf("<\033[1;31m%s\033[m>", yytext);
 
 %%
 int main()
