@@ -1,4 +1,4 @@
-### Answer to question in Stack Overflow.
+### What happens when fork() in a condition?
 
 This is the code corresponding to
 [this answer](https://stackoverflow.com/a/60226577/3899431),

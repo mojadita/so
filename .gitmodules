@@ -1,20 +1,20 @@
 [submodule "5723478"]
-	path = 57234078
+	path = c/how-to-read-multiple-serial-ports-in-realtime-in-c-or-python
 	url = ssh://git@github.com/mojadita/so-monitor
 [submodule "49965333"]
 	path = c/how-to-pass-multiple-values-from-child-to-parent-process-using-signals-in-c
 	url = ssh://git@github.com/mojadita/signals
 [submodule "6189146"]
-	path = 56189146
+	path = c/solve-for-a-and-b-in-n-a-a1-a2-b
 	url = ssh://git@github.com/mojadita/so-56189146
 [submodule "57333102"]
 	path = 57333102
 	url = git@github.com:mojadita/fprintbuf.git
 [submodule "59083362"]
-	path = 59083362
+	path = c/how-to-make-binary-tree-from-inorder-and-preorder-traversals
 	url = git@github.com:mojadita/tree_pre_in_order.git
 [submodule "61281340"]
-	path = 61281340
+	path = c/horizontally-drawn-rowcolumn-class-for-motif-library-c
 	url = git@github.com:mojadita/keypad.git
 [submodule "c/how-do-i-print-the-the-path-using-dijkstras-shortest-path-in-c"]
 	path = c/how-do-i-print-the-the-path-using-dijkstras-shortest-path-in-c
