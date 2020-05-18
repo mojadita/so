@@ -16,3 +16,6 @@
 [submodule "61281340"]
 	path = 61281340
 	url = git@github.com:mojadita/keypad.git
+[submodule "c/how-do-i-print-the-the-path-using-dijkstras-shortest-path-in-c"]
+	path = c/how-do-i-print-the-the-path-using-dijkstras-shortest-path-in-c
+	url = ssh://git@github.com/mojadita/dijkstra
