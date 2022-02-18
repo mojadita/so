@@ -1,0 +1,56 @@
+There are two problems to consider here, the first
+easy to solve, and the second is somewhat more difficult:
+
+* The first
+is how to calculate the amounts of memory that you need
+for maximum compaction of the memory blocks you are going to manage.
+
+* The second,
+more complex is to handle different architectures, and cope with
+the problem that some architectures don't support unaligned data.
+This means that, as normal, you need to align 8 byte integers to an
+aligned address (at addresses multiple of 8 bytes)
+Even if the architecture allows misaligned data, you have normally
+to do more than one bus access to read/write that data degrading
+seriously the performance of your library.
+
+So, to solve both problems, we'll have only one sure fact:
+is that the first block address (the pointer to the first 8Byte
+integer before the first block) is properly aligned.
+The question now is: How can I get properly aligned pointers to
+memory that are aligned with the first?
+The answer is to use an array, and calculate (in terms of arrays
+of integers, and not of arrays of chars, the needed space to
+allocate in the first block an aligned pointer to an integer that
+allows us to return a valid block of, at least the requested memory)
+So the first thing to do is to know our types.
+The 8Byte integer is a 64 bit integer, with normally is not the
+default `int` integer in common architectures (even in 64bit
+architectures, the `int` is a 32bit quantity, and you have to use
+`long` or, better, to ensure a `uint64_t` from `<stdint.h>`.
+
+So. the first thing is to see our block as an array of `uint64_t`:
+Then, we have to use this kind of pointers to make pointer
+arithmetic, in cells of `uint64_t`, so every 8byte number will
+be aligned if the first one already is.
+
+The next thing is to consider that the block partition is done
+before one of these 8byte blocks, the one that has enough space
+(possibly more) to fit the requested block plus 1 block, that we
+dedicate to store the amount of memory.
+To get the amount of fully usable blocks of memory, we just divide
+the original `memory.size` to get the total number of blocks, and we
+also need to store the remainder of the division, because the amount
+requested doesn't need to be a multiple of 8, (nor the tail block of
+memory)
+
+We subtract from the `memory.size` the amount or memory requested.
+This should be ok, in case that memory results in a multiple of
+eight, as there will be an exact match of the aligned 8byte number
+and the.
+If we just divide this amount of remaining memory and we divide by
+`sizeof uint64_t`, then subtract one more to allow for the 8b
+integer (we will lose a small quantity, due to alignment) we will
+get the index of the integer array at wich 
+
+ 
